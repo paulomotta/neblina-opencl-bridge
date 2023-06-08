@@ -7,6 +7,17 @@
 #include "clutils.h"
 #include "libneblina.h"
 #include "neblina.h"
+#include "bridge_api.h"
+
+void InitEngine(int device){
+    //printf("InitEngine\n");
+    InitCLEngine(device);
+    //printf("end InitEngine\n");
+}
+
+void StopEngine(){
+    ReleaseCLInfo(clinfo);
+}
 
 
 double * addVector( double * v1, double * v2, int n ) {
@@ -768,7 +779,7 @@ double sumVector( cl_mem vDev, int len ) {
         CLERR
         int ii;
         out = 0.0;
-        #pragma omp parallel for reduction (+:out)
+//        #pragma omp parallel for reduction (+:out)
         for( ii=0; ii<lenOut; ii++) {            
             out += outToSum[ii];
         }
@@ -779,7 +790,7 @@ double sumVector( cl_mem vDev, int len ) {
         CLERR
         int ii;
         out = 0.0;
-        #pragma omp parallel for reduction (+:out)
+//        #pragma omp parallel for reduction (+:out)
         for( ii=0; ii<lenOut; ii++) {            
             out += outToSum[ii];
         }
@@ -823,7 +834,7 @@ double normVector( cl_mem vDev, int len ) {
         CLERR
         int ii;
         out = 0.0;
-        #pragma omp parallel for reduction (+:out)
+//        #pragma omp parallel for reduction (+:out)
         for( ii=0; ii<lenOut; ii++) {            
             out += outToSum[ii];
         }
@@ -834,7 +845,7 @@ double normVector( cl_mem vDev, int len ) {
         CLERR
         int ii;
         out = 0.0;
-        #pragma omp parallel for reduction (+:out)
+//        #pragma omp parallel for reduction (+:out)
         for( ii=0; ii<lenOut; ii++) {            
             out += outToSum[ii];
         }
@@ -880,7 +891,7 @@ double dotVector(cl_mem v1Dev, cl_mem v2Dev, int len ) {
         CLERR
         int ii;
         out = 0.0;
-        #pragma omp parallel for reduction (+:out)        
+//        #pragma omp parallel for reduction (+:out)        
         for( ii=0; ii<lenOut; ii++) {            
             out += outToSum[ii];
         }
@@ -891,7 +902,7 @@ double dotVector(cl_mem v1Dev, cl_mem v2Dev, int len ) {
         CLERR
         int ii;
         out = 0.0;
-        #pragma omp parallel for reduction (+:out)        
+//        #pragma omp parallel for reduction (+:out)        
         for( ii=0; ii<lenOut; ii++) {            
             out += outToSum[ii];
         }
@@ -942,7 +953,7 @@ void dotVectorComplex( double * out_re, double * out_im,  cl_mem v1Dev, cl_mem v
         int ii;
         *out_re = 0.0;
         *out_im = 0.0;
-        #pragma omp parallel for reduction (+:out)        
+////        #pragma omp parallel for reduction (+:out)        
         for( ii=0; ii<lenOut; ii++) {            
             *out_re += outToSum_re[ii];
             *out_im += outToSum_im[ii];
@@ -972,31 +983,31 @@ void dotVectorComplex( double * out_re, double * out_im,  cl_mem v1Dev, cl_mem v
 }
 
 
-cl_mem rmatVecMul3Complex(  rmatrix_t * M, cl_mem vDev, int ncols, int nrows ) {
-    cl_int status;
-    cl_mem outDev;
-    cl_kernel kernel = M->kernel;
-    size_t localWorkSize = 256;
-    size_t globalWorkSize = 2 * clinfo.n * localWorkSize;   
-    outDev = clCreateBuffer(clinfo.c, CL_MEM_WRITE_ONLY, 2*nrows*sizeof(double), NULL, &status);
-    CLERR   
-    status = clSetKernelArg (kernel, 0, sizeof(outDev), &outDev);
-    CLERR
-    status = clSetKernelArg (kernel, 1, sizeof(vDev), &vDev);
-    CLERR
-    status = clSetKernelArg (kernel, 2, sizeof(int), (void *)&ncols);
-    CLERR
-    status = clSetKernelArg (kernel, 3, sizeof(int), (void *)&nrows);
-    CLERR
-    status = clSetKernelArg (kernel, 4, localWorkSize * sizeof(double), NULL);
-    CLERR
-    status = clSetKernelArg (kernel, 5, localWorkSize * sizeof(double), NULL);
-    CLERR    
-    status = clEnqueueNDRangeKernel(clinfo.q, kernel, 1, NULL, &globalWorkSize, &localWorkSize, 0, NULL, NULL);
-    CLERR
-    status = clFinish(clinfo.q);
-    CLERR
-    return outDev;
-}
+//cl_mem rmatVecMul3Complex(  rmatrix_t * M, cl_mem vDev, int ncols, int nrows ) {
+//    cl_int status;
+//    cl_mem outDev;
+//    cl_kernel kernel = M->kernel;
+//    size_t localWorkSize = 256;
+//    size_t globalWorkSize = 2 * clinfo.n * localWorkSize;   
+//    outDev = clCreateBuffer(clinfo.c, CL_MEM_WRITE_ONLY, 2*nrows*sizeof(double), NULL, &status);
+//    CLERR   
+//    status = clSetKernelArg (kernel, 0, sizeof(outDev), &outDev);
+//    CLERR
+//    status = clSetKernelArg (kernel, 1, sizeof(vDev), &vDev);
+//    CLERR
+//    status = clSetKernelArg (kernel, 2, sizeof(int), (void *)&ncols);
+//    CLERR
+//    status = clSetKernelArg (kernel, 3, sizeof(int), (void *)&nrows);
+//    CLERR
+//    status = clSetKernelArg (kernel, 4, localWorkSize * sizeof(double), NULL);
+//    CLERR
+//    status = clSetKernelArg (kernel, 5, localWorkSize * sizeof(double), NULL);
+//    CLERR    
+//    status = clEnqueueNDRangeKernel(clinfo.q, kernel, 1, NULL, &globalWorkSize, &localWorkSize, 0, NULL, NULL);
+//    CLERR
+//    status = clFinish(clinfo.q);
+//    CLERR
+//    return outDev;
+//}
     
 #endif

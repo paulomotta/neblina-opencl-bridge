@@ -1,5 +1,5 @@
-#ifndef ____cl_utils
-#define ____cl_utils
+#ifndef ____cl_utils_
+#define ____cl_utils_
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -7,7 +7,7 @@ extern "C" {
 #include <CL/opencl.h>
 
 #define DEBUGCL  0
-#define NKERNELS 27
+#define NKERNELS 32
 
 #define KERVETADD        0
 #define KERVETSUB        1
@@ -77,7 +77,7 @@ cl_info GetCLInfo( char * filename );
                       /*         IN               IN                    OUT */
 cl_info GetCLInfoRMat( char * strKernel, char * kernelName, cl_kernel * kernel );
 size_t roundUp(int group_size, int global_size);
-void checkErrors(cl_int status, char *label, int line);
+void checkErrors(cl_int status, const char *label, int line);
 char* filetobuf(char *file);
 cl_info GetCLInfo( char * filename );
 void ReleaseCLInfo( cl_info info );

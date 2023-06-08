@@ -1,7 +1,28 @@
+#include <CL/opencl.h>
+#include "clutils.h"
 #include "libneblina.h"
 #include <stdio.h>
 #include <stdlib.h>
 
+slist * slist_add( slist * l, int col, double re, double im ) {
+    slist * nlist = (slist *) malloc( sizeof(slist) );
+    nlist->col = col;
+    nlist->re = re;
+    nlist->im = im;
+    nlist->next = l;
+    return nlist;
+}
+
+
+void slist_clear( slist * l ) {
+    if( l == NULL )
+        return;    
+    do {    
+        slist * tmp = l->next;
+        free( l );
+        l = tmp;                
+    } while( l != NULL );
+}
 
 void smatrix_pack(smatrix_t * m){
     //essa parte seta os valores que foram lidos do arquivo em smat para o formato de 

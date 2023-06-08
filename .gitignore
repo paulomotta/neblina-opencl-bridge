@@ -21,3 +21,5 @@ matrix_test
 sparse_matrix_test
 vector_test
 *.iml
+
+install_manifest.txt

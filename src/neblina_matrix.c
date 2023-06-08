@@ -1,3 +1,5 @@
+#include <CL/opencl.h>
+#include "clutils.h"
 #include "libneblina.h"
 #include <stdio.h>
 #include <stdlib.h>

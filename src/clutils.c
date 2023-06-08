@@ -19,7 +19,7 @@ size_t roundUp(int group_size, int global_size)
 }
 
 
-void checkErrors(cl_int status, char *label, int line)
+void checkErrors(cl_int status, const char *label, int line)
 {
   switch (status)
   {
@@ -388,10 +388,11 @@ void InitCLEngine(int device) {
     cl_int status;
     proctype = CL_DEVICE_TYPE_ALL;
     id_device = device;
-    if( nkernelsRmat == 0 )
+    if( nkernelsRmat == 0 ) {
         clinfo = GetCLInfo("/usr/local/include/vector.cl");
-    else
+    } else {
         rebuildProgram("/usr/local/include/vector.cl");    
+    }
     int ii;
     for(ii=0;ii<32;ii++)
         rmatstat[ii] = 0;
@@ -408,7 +409,7 @@ void InitCLEngine(int device) {
     CLERR
     clkernels[5] = clCreateKernel (clinfo.p, "sumVector", &status);
     CLERR 
-  clkernels[6] = clCreateKernel (clinfo.p, "matMul1", &status);
+    clkernels[6] = clCreateKernel (clinfo.p, "matMul1", &status);
     CLERR
     clkernels[7] = clCreateKernel (clinfo.p, "normVector", &status);
     CLERR 
@@ -460,7 +461,7 @@ void InitCLEngine(int device) {
     CLERR
     clkernels[KER_VET_SUB_COMPLEX] = clCreateKernel (clinfo.p, "subVectorComplex", &status);
     CLERR
-    
+
 }
 
  

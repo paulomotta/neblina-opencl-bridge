@@ -1,3 +1,5 @@
+#include <CL/opencl.h>
+#include "clutils.h"
 #include "libneblina.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -55,16 +57,20 @@ void vecreqhost( vector_t * v ) {
         v->location = LOCHOS;
         int len = (v->type == T_COMPLEX) ? (2*v->len) : (v->len);
         if(clinfo.fp64) {   
+            printf("vec req host fp64\n");
             status = clEnqueueReadBuffer (clinfo.q, (cl_mem)v->extra, CL_TRUE, 0, len*size_type, v->value.f, 0, NULL, NULL);
+            printf("vec req host fp64 back\n");
             CLERR
         } else {
             int i;
             float * tmp = (float *) malloc( sizeof(float) * len );               
             status = clEnqueueReadBuffer (clinfo.q, (cl_mem)v->extra, CL_TRUE, 0, len*size_type,tmp, 0, NULL, NULL);
             CLERR
+            printf("vec req host\n");
             #pragma omp parallel for
             for( i = 0; i < len; i++){ v->value.f[i] = tmp[i]; /*printf("V -> %f\n", tmp[i]);*/ }
             free( tmp );
+            printf("vec req host back\n");
         }
         clReleaseMemObject( (cl_mem)v->extra );
         CLERR  
