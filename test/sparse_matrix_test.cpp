@@ -49,7 +49,7 @@ public:
 //
 //    int n = 10;
 //
-//    vector_t * a = vector_new(n, T_FLOAT);
+//    vector_t * a = vector_new(n, T_FLOAT, 1);
 //    smatrix_t * b = smatrix_new(n, n, T_FLOAT);
 //    vector_t * out;
 //
@@ -102,7 +102,7 @@ TEST_F(SparseMatrixFixture, matvec_mul3_WithSparseMatrixFloat) {
 
     int n = 10;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT);
+    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1);
     smatrix_t * b = m.bridges[idx].smatrix_new(n, n, T_FLOAT);
     vector_t * r;
 
@@ -154,7 +154,7 @@ TEST_F(SparseMatrixFixture, matvec_mul3_WithSparseMatrixComplex) {
 
     int n = 7000;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX);
+    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1);
     smatrix_t * b = m.bridges[idx].smatrix_new(n, n, T_COMPLEX);
     vector_t * r;
 
