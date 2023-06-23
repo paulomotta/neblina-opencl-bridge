@@ -321,22 +321,33 @@ void smatreqdev ( smatrix_t * v ) {
             return (void **) NULL;
         int len = ( m->type == T_COMPLEX ) ? (2 * m->maxcols * m->nrow) : (m->maxcols * m->nrow);
         m->location = LOCDEV;
-        m->idxColMem = clCreateBuffer( clinfo.c,  CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, m->maxcols * m->nrow * sizeof(int), m->idx_col, &status);
+        cl_mem_flags flags;
+        if (m->idx_col != NULL) {
+            flags = CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR;
+        } else {
+            flags = CL_MEM_READ_ONLY;
+        }
+        m->idxColMem = clCreateBuffer( clinfo.c, flags, m->maxcols * m->nrow * sizeof(int), m->idx_col, &status);
         CLERR
+        if (m->m != NULL) {
+            flags = CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR;
+        } else {
+            flags = CL_MEM_READ_ONLY;
+        }
         if( clinfo.fp64 ) {          
             /*printf("Tot dev\n");
             int ii;
             for(ii = 0;ii < len; ii++ )
                 printf("%lf\n", m->m[ii] );
             */
-            m->extra = clCreateBuffer( clinfo.c,  CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, len * size_type, m->m, &status);
+            m->extra = clCreateBuffer( clinfo.c, flags, len * size_type, m->m, &status);
             CLERR            
         } else {
             int i;
             float * tmp = (float *) malloc( sizeof(float) * len );
             #pragma omp parallel for
             for( i = 0; i < len; i++) tmp[i] = (float) m->m[i];
-            m->extra = clCreateBuffer( clinfo.c,  CL_MEM_READ_ONLY |  CL_MEM_COPY_HOST_PTR, len * size_type, tmp, &status);
+            m->extra = clCreateBuffer( clinfo.c, flags, len * size_type, tmp, &status);
             CLERR
             free( tmp );
         }

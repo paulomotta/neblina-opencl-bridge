@@ -168,9 +168,9 @@ void checkErrors(cl_int status, const char *label, int line)
 
 char* filetobuf(char *file)
 {
-    FILE *fptr;
-    long length;
-    char *buf;
+    FILE *fptr = NULL;
+    long length = 0;
+    char *buf = NULL;
  
     fptr = fopen(file, "rb"); 
     if (!fptr)
@@ -188,9 +188,9 @@ char* filetobuf(char *file)
 
 cl_info GetCLInfo( char * filename ) {
     #undef DEBUGCL
-    cl_int status;
-    cl_uint numPlatforms;
-    cl_uint num_compute_units;
+    cl_int status = 0;
+    cl_uint numPlatforms = 0;
+    cl_uint num_compute_units = 0;
     int k = 0;    
     status = clGetPlatformIDs (0, NULL, &numPlatforms);
     //printf("%u",numPlatforms);
@@ -212,7 +212,7 @@ cl_info GetCLInfo( char * filename ) {
     cl_device_id currentDevice = NULL;
     cl_platform_id currentPlatform = NULL;
     cl_device_id* allDevices = NULL;
-    cl_uint iplatform;
+    cl_uint iplatform = 0;
     for (iplatform=0; iplatform < numPlatforms && findDevice == 0; iplatform++)
     {
         currentPlatform = allPlatforms[iplatform];
@@ -239,7 +239,7 @@ cl_info GetCLInfo( char * filename ) {
             printf ("Profile: %s\n", profile);
 #endif
         // get number of devices available on current platform that match target type
-        cl_uint numDevices;
+        cl_uint numDevices = 0;
         status = clGetDeviceIDs (currentPlatform, CL_DEVICE_TYPE_ALL, 0, NULL, &numDevices);
 
 

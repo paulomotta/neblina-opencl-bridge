@@ -4,17 +4,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-matrix_t * matrix_new( int nrow, int ncol, data_type type ) {
+matrix_t * matrix_new( int nrow, int ncol, data_type type, int initialize ) {
     matrix_t * ret = (matrix_t *) malloc( sizeof( matrix_t ) );
     
-    if( type == T_INT ) {
-        ret->value.i = (int *) malloc( nrow * ncol * sizeof( int ) );
-    } else if( type == T_FLOAT ) {
-        ret->value.f = (double *) malloc( nrow * ncol * sizeof( double ) );
-    } else if( type == T_COMPLEX ) {
-        ret->value.f = (double *) malloc( 2 * nrow * ncol * sizeof( double ) );
+    if (initialize) {
+        if( type == T_INT ) {
+            ret->value.i = (int *) malloc( nrow * ncol * sizeof( int ) );
+        } else if( type == T_FLOAT ) {
+            ret->value.f = (double *) malloc( nrow * ncol * sizeof( double ) );
+        } else if( type == T_COMPLEX ) {
+            ret->value.f = (double *) malloc( 2 * nrow * ncol * sizeof( double ) );
+        }
+    } else {
+        ret->value.f = NULL;
     }
-
     
     ret->type       = type;
     ret->nrow       = nrow;
@@ -81,15 +84,21 @@ void matreqdev ( matrix_t * v ) {
         if( m->location == LOCDEV )
             return (void **) NULL;
         m->location = LOCDEV;
+        cl_mem_flags flags;
+        if (m->value.f != NULL) {
+            flags = CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR;
+        } else {
+            flags = CL_MEM_READ_ONLY;
+        }
         if( clinfo.fp64 ) {
-            m->extra = clCreateBuffer( clinfo.c,  CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, len * size_type, m->value.f, &status);
+            m->extra = clCreateBuffer( clinfo.c, flags, len * size_type, m->value.f, &status);
             CLERR
         } else {
             int i;
             float * tmp = (float *) malloc( sizeof(float) * len );
             #pragma omp parallel for
             for( i = 0; i < len; i++) tmp[i] = (float) m->value.f[i];
-            m->extra = clCreateBuffer( clinfo.c,  CL_MEM_READ_ONLY |  CL_MEM_COPY_HOST_PTR, len * size_type, tmp, &status);
+            m->extra = clCreateBuffer( clinfo.c, flags, len * size_type, tmp, &status);
             CLERR
             free( tmp );
 
