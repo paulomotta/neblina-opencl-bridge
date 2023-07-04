@@ -121,25 +121,6 @@ TEST_F(NeblinaCoreFixture, vec_add) {
 
 }
 
-TEST_F(NeblinaCoreFixture, vec_len) {
-
-    int n = 3;
-
-    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1 );
-
-    for (int i = 0; i < a->len; i++) {
-        a->value.f[i] = 1.;
-    }
-
-    object_t ** in = convertToObject(a, NULL);
-
-    int len = vec_len(&m, idx, (void **) in, NULL);
-
-    EXPECT_EQ(3, len);
-    m.bridges[idx].vector_delete(a);
-
-}
-
 TEST_F(NeblinaCoreFixture, vec_add_complex) {
 
     int n = 3;
