@@ -17,7 +17,7 @@ find_package(Threads REQUIRED)
 
 add_compile_options(
   "-Wall" "-Wpedantic" "-Wextra" "-fexceptions"
-  "-O0;-g3;-ggdb"
+  "-O0;-g3;-ggdb" "-fcommon" 
 )
 message("OpenCL_LIBRARY ${OpenCL_LIBRARY}")
 message("PROJECT ${PROJECT_SOURCE_DIR}")
