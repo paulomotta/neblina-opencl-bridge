@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-vector_t * vector_new( int len, data_type type, int initialize ) {
+vector_t * vector_new( int len, data_type type, int initialize, void * data ) {
     vector_t * ret = (vector_t *) malloc( sizeof( vector_t ) );
     int i = 0;
-    if (initialize) {
+    if (initialize && data == NULL) {
         if( type == T_INT ) {
             ret->value.i = (int *) malloc( len * sizeof( int ) );
         } else if( type == T_FLOAT )
@@ -21,9 +21,14 @@ vector_t * vector_new( int len, data_type type, int initialize ) {
                 char * tmp = (char *)ret->value.s[i];
                 tmp[0] = 0;
             }  
-        }         
+        }
+        ret->externalData = 0;       
+    } else if (data != NULL) {
+        ret->value.f = (double *)data;
+        ret->externalData = 1;
     } else {
         ret->value.f = NULL;
+        ret->externalData = 0;
     }
     
     ret->type      = type;
@@ -39,7 +44,7 @@ void vector_delete( vector_t * v ) {
         cl_int status = clReleaseMemObject( (cl_mem)v->extra );
         CLERR
     }
-    if (v->value.f != NULL) {
+    if (v->value.f != NULL && v->externalData == 0) {
         free (v->value.f);
     }
     free (v);

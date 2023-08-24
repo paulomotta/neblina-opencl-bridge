@@ -65,9 +65,9 @@ TEST_F(NeblinaCoreFixture, addVectorF) {
 
     int n = 3;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1 );
-    vector_t * b = m.bridges[idx].vector_new(n, T_FLOAT, 1 );
-    vector_t * r = m.bridges[idx].vector_new(n, T_FLOAT, 0 );
+    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL );
+    vector_t * b = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL );
+    vector_t * r = m.bridges[idx].vector_new(n, T_FLOAT, 0, NULL );
 
     for (int i = 0; i < a->len; i++) {
         a->value.f[i] = 1.;
@@ -95,8 +95,8 @@ TEST_F(NeblinaCoreFixture, vec_add) {
 
     int n = 3;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1);
-    vector_t * b = m.bridges[idx].vector_new(n, T_FLOAT, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
+    vector_t * b = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
     vector_t * r;
 
     for (int i = 0; i < a->len; i++) {
@@ -125,8 +125,8 @@ TEST_F(NeblinaCoreFixture, vec_add_complex) {
 
     int n = 3;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1);
-    vector_t * b = m.bridges[idx].vector_new(n, T_COMPLEX, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
+    vector_t * b = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
     vector_t * r;
 
     for (int i = 0; i < a->len; i++) {
@@ -160,8 +160,8 @@ TEST_F(NeblinaCoreFixture, vec_sub) {
 
     int n = 3;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1);
-    vector_t * b = m.bridges[idx].vector_new(n, T_FLOAT, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
+    vector_t * b = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
     vector_t * r;
 
     for (int i = 0; i < a->len; i++) {
@@ -188,8 +188,8 @@ TEST_F(NeblinaCoreFixture, vec_sub_WithComplex) {
 
     int n = 3;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1);
-    vector_t * b = m.bridges[idx].vector_new(n, T_COMPLEX, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
+    vector_t * b = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
     vector_t * r;
 
     for (int i = 0; i < a->len; i++) {
@@ -225,7 +225,7 @@ TEST_F(NeblinaCoreFixture, scalar_vec) {
     int n = 3;
     
     double scalar = 2.0;
-    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
     
     for (int i = 0; i < a->len; i++) {
         a->value.f[i] = 2.;
@@ -250,7 +250,7 @@ TEST_F(NeblinaCoreFixture, complex_scalar_float_vec) {
     int n = 3;
     
     complex_t * scalar = m.bridges[idx].complex_new(2.0, 2.0);
-    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
     
     for (int i = 0; i < a->len; i++) {
         a->value.f[i] = 2.;
@@ -277,7 +277,7 @@ TEST_F(NeblinaCoreFixture, complex_scalar_complex_vec) {
     int n = 3;
     
     complex_t * scalar = m.bridges[idx].complex_new(2.0, 2.0);
-    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
     
     for (int i = 0; i < a->len; i++) {
         int idx = 2 * (i);
@@ -306,7 +306,7 @@ TEST_F(NeblinaCoreFixture, float_scalar_complex_vec) {
     int n = 3;
     
     double scalar = 2.0;
-    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
     
     for (int i = 0; i < a->len; i++) {
         int idx = 2 * (i);
@@ -333,8 +333,8 @@ TEST_F(NeblinaCoreFixture, vec_prod_WithFloat) {
 
     int n = 3;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1);
-    vector_t * b = m.bridges[idx].vector_new(n, T_FLOAT, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
+    vector_t * b = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
     vector_t * r;
 
     for (int i = 0; i < a->len; i++) {
@@ -361,8 +361,8 @@ TEST_F(NeblinaCoreFixture, vec_prod_WithComplex) {
 
     int n = 3;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1);
-    vector_t * b = m.bridges[idx].vector_new(n, T_COMPLEX, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
+    vector_t * b = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
     vector_t * r;
 
     for (int i = 0; i < 2 * a->len; i += 2) {
@@ -392,7 +392,7 @@ TEST_F(NeblinaCoreFixture, vec_conj) {
 
     int n = 3;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
     vector_t * r;
 
     for (int i = 0; i < 2 * a->len; i += 2) {
@@ -420,7 +420,7 @@ TEST_F(NeblinaCoreFixture, vec_add_off) {
 
     int n = 4;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
     vector_t * r;
 
     for (int i = 0; i < a->len; i++) {
@@ -445,7 +445,7 @@ TEST_F(NeblinaCoreFixture, vec_sum) {
 
     int n = 4;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
     object_t * r;
 
     for (int i = 0; i < a->len; i++) {
@@ -466,10 +466,10 @@ TEST_F(NeblinaCoreFixture, addVectorC) {
 
     int n = 3;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1);
-    vector_t * b = m.bridges[idx].vector_new(n, T_COMPLEX, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
+    vector_t * b = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
 
-    vector_t * r = m.bridges[idx].vector_new(n, T_COMPLEX, 0 );
+    vector_t * r = m.bridges[idx].vector_new(n, T_COMPLEX, 0, NULL);
 
 
     for (int i = 0; i < 2 * a->len; i += 2) {
@@ -502,10 +502,10 @@ TEST_F(NeblinaCoreFixture, subVector) {
 
     int n = 3;
 
-    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1);
-    vector_t * b = m.bridges[idx].vector_new(n, T_FLOAT, 1);
+    vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
+    vector_t * b = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
 
-    vector_t * r = m.bridges[idx].vector_new(n, T_FLOAT, 0 );
+    vector_t * r = m.bridges[idx].vector_new(n, T_FLOAT, 0, NULL);
 
 
     for (int i = 0; i < a->len; i++) {
