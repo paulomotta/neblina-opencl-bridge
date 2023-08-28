@@ -49,8 +49,8 @@ TEST_F(MatrixFixture, mat_add) {
 
     int n = 3;
 
-    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1);
-    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1);
+    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1, NULL);
+    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1, NULL);
 
     for (int i = 0; i < b->ncol; i++) {
         for (int j = 0; j < b->nrow; j++) {
@@ -81,7 +81,7 @@ TEST_F(MatrixFixture, mat_get_set_float) {
 
     int n = 3;
 
-    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1);
+    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1, NULL);
 
     for (int i = 0; i < a->ncol; i++) {
         for (int j = 0; j < a->nrow; j++) {
@@ -103,7 +103,7 @@ TEST_F(MatrixFixture, mat_get_set_complex) {
 
     int n = 3;
 
-    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1);
+    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1, NULL);
 
     for (int i = 0; i < a->ncol; i++) {
         for (int j = 0; j < a->nrow; j++) {
@@ -126,8 +126,8 @@ TEST_F(MatrixFixture, mat_add_complex) {
 
     int n = 3;
 
-    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1);
-    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1);
+    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1, NULL);
+    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1, NULL);
 
     for (int i = 0; i < b->ncol; i++) {
         for (int j = 0; j < b->nrow; j++) {
@@ -164,8 +164,8 @@ TEST_F(MatrixFixture, mat_add_complex_float) {
 
     int n = 3;
 
-    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1);
-    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1);
+    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1, NULL);
+    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1, NULL);
 
     for (int i = 0; i < b->ncol; i++) {
         for (int j = 0; j < b->nrow; j++) {
@@ -201,8 +201,8 @@ TEST_F(MatrixFixture, mat_mul) {
 
     int n = 3;
 
-    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1);
-    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1);
+    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1, NULL);
+    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1, NULL);
 
     for (int i = 0; i < b->ncol; i++) {
         for (int j = 0; j < b->nrow; j++) {
@@ -232,8 +232,8 @@ TEST_F(MatrixFixture, mat_mul_withComplex) {
 
     int n = 2;
 
-    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1);
-    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1);
+    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1, NULL);
+    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1, NULL);
 
     m.bridges[idx].matrix_set_complex_value(a, 0, 0, 17., 1.0);
     m.bridges[idx].matrix_set_complex_value(b, 0, 0, 60., 0.0);
@@ -301,7 +301,7 @@ TEST_F(MatrixFixture, scalar_mat_float) {
     int n = 3;
     
     double scalar = 2.0;
-    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1);
+    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1, NULL);
 
     for (int i = 0; i < a->ncol; i++) {
         for (int j = 0; j < a->nrow; j++) {
@@ -330,7 +330,7 @@ TEST_F(MatrixFixture, scalar_mat_complex) {
     int n = 3;
     
     double scalar = 2.0;
-    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1);
+    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1, NULL);
 
     for (int i = 0; i < a->ncol; i++) {
         for (int j = 0; j < a->nrow; j++) {
@@ -363,7 +363,7 @@ TEST_F(MatrixFixture, complex_scalar_complex_mat) {
     int n = 3;
     
     complex_t * scalar = m.bridges[idx].complex_new(2.0, 2.0);
-    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1);
+    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1, NULL);
 
     for (int i = 0; i < a->ncol; i++) {
         for (int j = 0; j < a->nrow; j++) {
@@ -396,7 +396,7 @@ TEST_F(MatrixFixture, complex_scalar_float_mat) {
     int n = 3;
     
     complex_t * scalar = m.bridges[idx].complex_new(2.0, 2.0);
-    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1);
+    matrix_t * a = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1, NULL);
 
     for (int i = 0; i < a->ncol; i++) {
         for (int j = 0; j < a->nrow; j++) {
@@ -429,7 +429,7 @@ TEST_F(MatrixFixture, matvec_mul3_WithFloat) {
     int n = 3;
 
     vector_t * a = m.bridges[idx].vector_new(n, T_FLOAT, 1, NULL);
-    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1);
+    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_FLOAT, 1, NULL);
     vector_t * r;
 
     for (int i = 0; i < a->len; i++) {
@@ -462,7 +462,7 @@ TEST_F(MatrixFixture, matvec_mul3_WithComplex) {
     int n = 7000;
 
     vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
-    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1);
+    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1, NULL);
     vector_t * r;
 
     for (int i = 0; i < 2 * a->len; i += 2) {
@@ -502,7 +502,7 @@ TEST_F(MatrixFixture, matvec_mul3_WithComplex_reusingResult) {
     int n = 15000;
 
     vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
-    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1);
+    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1, NULL);
     vector_t * r;
 
     for (int i = 0; i < 2 * a->len; i += 2) {
@@ -545,7 +545,7 @@ TEST_F(MatrixFixture, large_matvec_mul3_WithComplex) {
     int n = 1024;
 
     vector_t * a = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
-    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1);
+    matrix_t * b = m.bridges[idx].matrix_new(n, n, T_COMPLEX, 1, NULL);
     vector_t * r;
     vector_t * truth = m.bridges[idx].vector_new(n, T_COMPLEX, 1, NULL);
 

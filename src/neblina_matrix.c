@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-matrix_t * matrix_new( int nrow, int ncol, data_type type, int initialize ) {
+matrix_t * matrix_new( int nrow, int ncol, data_type type, int initialize, void * data ) {
     matrix_t * ret = (matrix_t *) malloc( sizeof( matrix_t ) );
     
-    if (initialize) {
+    if (initialize && data == NULL) {
         if( type == T_INT ) {
             ret->value.i = (int *) malloc( nrow * ncol * sizeof( int ) );
         } else if( type == T_FLOAT ) {
@@ -15,8 +15,13 @@ matrix_t * matrix_new( int nrow, int ncol, data_type type, int initialize ) {
         } else if( type == T_COMPLEX ) {
             ret->value.f = (double *) malloc( 2 * nrow * ncol * sizeof( double ) );
         }
+        ret->externalData = 0;
+    } else if (data != NULL) {
+        ret->value.f = (double *)data;
+        ret->externalData = 1;
     } else {
         ret->value.f = NULL;
+        ret->externalData = 0;
     }
     
     ret->type       = type;
@@ -32,7 +37,7 @@ void matrix_delete( matrix_t * m ) {
         cl_int status = clReleaseMemObject( (cl_mem) m->extra );
         CLERR
     }
-    if (m->value.f != NULL) {
+    if (m->value.f != NULL && m->externalData == 0) {
         free (m->value.f);
     }
     free (m);
